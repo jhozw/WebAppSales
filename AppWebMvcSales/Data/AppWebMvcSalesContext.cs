@@ -14,6 +14,8 @@ namespace AppWebMvcSales.Data
         {
         }
 
-        public DbSet<AppWebMvcSales.Models.Departament> Departament { get; set; } = default!;
+        public DbSet<Departament> Departament { get; set; } = default!;
+        public DbSet<Seller> Seller { get; set; } = default!;
+        public DbSet<SelesRecord> SellersRecord { get; set; } = default!;
     }
 }

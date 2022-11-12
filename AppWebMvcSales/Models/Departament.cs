@@ -1,17 +1,30 @@
-﻿namespace AppWebMvcSales.Models
+﻿using System.Collections.Generic;
+
+namespace AppWebMvcSales.Models
 {
     public class Departament
     {
         public int id { get; set; }
-        public string name { get; set; }
+        public string? name { get; set; }
+        public ICollection<Seller> Sellers{ get; set; } = new List<Seller>();
 
-        public void AddSeller()
+        public Departament()
         {
 
         }
-        public double TotalSales(DateTime initialDate, DateTime finalDate)
+        public Departament(int id, string? name)
         {
-            return 0;
+            this.id = id;
+            name = name;
+        }
+
+        public void AddSeller(Seller seller)
+        {
+            Sellers.Add(seller);
+        }
+        public decimal TotalSales(DateTime initialDate, DateTime finalDate)
+        {
+            return Sellers.Sum(seller => seller.TotalSales(initialDate, finalDate));
         }
     }
 }
