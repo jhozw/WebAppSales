@@ -22,13 +22,14 @@ namespace AppWebMvcSales.Models
             Status = status;
             SellerId = sellerId;
         }
-        public SelesRecord(int id, DateTime date, decimal amount, SalesStatus status, Seller seller)
+        public SelesRecord(int id, DateTime date, decimal amount, SalesStatus status, Seller seller, int sellerId)
         {
             Id = id;
             Date = date;
             Amount = amount;
             Status = status;
             Seller = seller;
+            SellerId = SellerId;
         }
 
     }

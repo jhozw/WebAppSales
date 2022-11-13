@@ -8,11 +8,47 @@ using Microsoft.EntityFrameworkCore;
 using AppWebMvcSales.Services;
 using AppWebMvcSales.Data;
 using AppWebMvcSales.Models;
+using AppWebMvcSales.Models.ViewModels;
 
 namespace AppWebMvcSales.Controllers
 {
     public class SellersController : Controller
     {
+        private readonly SellerService _sellerService;
+        private readonly DepartamentService _departamentService;
+        public SellersController(SellerService sellerService, DepartamentService departamentService)
+        {
+            _sellerService = sellerService;
+            _departamentService = departamentService;
+        }
+
+        public IActionResult Index()
+        {
+            return View(_sellerService.FindAllSellres());
+        }
+
+        public IActionResult Create()
+        {
+            var departaments = _departamentService.FindAll();
+            return View(new SellerFormViewMdels { Departaments = departaments });
+        }
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Create(Seller seller)
+        {
+            _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Delete()
+        {
+            return View();
+        }
+        public IActionResult Details()
+        {
+            return View();
+        }
+
+
         //private readonly AppWebMvcSalesContext _context;
 
         //public SellersController(AppWebMvcSalesContext context)
@@ -20,23 +56,16 @@ namespace AppWebMvcSales.Controllers
         //    _context = context;
         //}
 
-        private readonly SellerService _sellerService;
-        public SellersController(SellerService sellerService)
-        {
-            _sellerService = sellerService;
-        }
+
 
         // GET: Sellers
         //public async Task<IActionResult> Index()
         //{
         //    //var appWebMvcSalesContext = _context.Seller.Include(s => s.Departament);
         //    //return View(await appWebMvcSalesContext.ToListAsync());
-            
+
         //}
-        public IActionResult Index()
-        {
-            return View(_sellerService.FindAllSellres());
-        }
+
 
         //// GET: Sellers/Details/5
         //public async Task<IActionResult> Details(int? id)
@@ -167,7 +196,7 @@ namespace AppWebMvcSales.Controllers
         //    {
         //        _context.Seller.Remove(seller);
         //    }
-            
+
         //    await _context.SaveChangesAsync();
         //    return RedirectToAction(nameof(Index));
         //}

@@ -1,5 +1,6 @@
 ﻿using AppWebMvcSales.Data;
-namespace AppWebMvcSales.Services
+using AppWebMvcSales.Models;
+    namespace AppWebMvcSales.Services
 {
     public class DepartamentService
     {
@@ -7,6 +8,11 @@ namespace AppWebMvcSales.Services
         public DepartamentService(AppWebMvcSalesContext context)
         {
             _context = context;
+        }
+
+        public List<Departament> FindAll()
+        {
+            return _context.Departament.OrderBy(j => j.name).ToList();
         }
     }
 }

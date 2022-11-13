@@ -15,6 +15,11 @@ namespace AppWebMvcSales.Services
         {
             return _contax.Seller.ToList();
         }
+        public void Insert(Seller obj)
+        {
+            _contax.Seller.Add(obj);
+            _contax.SaveChanges();
+        }
 
     }
 }

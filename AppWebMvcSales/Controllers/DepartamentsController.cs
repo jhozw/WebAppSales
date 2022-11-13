@@ -7,12 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppWebMvcSales.Data;
 using AppWebMvcSales.Models;
+using AppWebMvcSales.Models.ViewModels;
+using AppWebMvcSales.Services;
 
 namespace AppWebMvcSales.Controllers
 {
     public class DepartamentsController : Controller
     {
-        private readonly AppWebMvcSalesContext _context;
+        private readonly DepartamentService _departamentService;
+        public DepartamentsController(DepartamentService departamentService)        {
+            _departamentService = departamentService;
+        }
+
+        public IActionResult Index()
+        {
+            var departaments = _departamentService.FindAll();
+            return View(departaments);
+
+        }
+
+
+        /*private readonly AppWebMvcSalesContext _context;
 
         public DepartamentsController(AppWebMvcSalesContext context)
         {
@@ -156,6 +171,6 @@ namespace AppWebMvcSales.Controllers
         private bool DepartamentExists(int id)
         {
           return _context.Departament.Any(e => e.id == id);
-        }
+        }*/
     }
 }
