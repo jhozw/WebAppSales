@@ -7,14 +7,23 @@
         public string? Email { get; set; }
         public DateTime BirthDate { get; set; }
         public decimal BaseSalary { get; set; }
-        public Departament? Departament { get; set; }
+        public Departament Departament { get; set; }
         public ICollection<SelesRecord> Selles { get; set; } = new List<SelesRecord>();
+        public int DepartamentId { get; set; }
 
         public Seller()
         {
 
         }
+        public Seller(string? nome, string? email, DateTime birthDate, decimal baseSalary, int departamentId)
+        {
+            Nome = nome;
+            Email = email;
+            BirthDate = birthDate;
+            BaseSalary = baseSalary;
+            DepartamentId = departamentId;
 
+        }
         public Seller(int id, string? nome, string? email, DateTime birthDate, decimal baseSalary, Departament? departament)
         {
             Id = id;

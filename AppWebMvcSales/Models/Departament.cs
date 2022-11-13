@@ -12,12 +12,18 @@ namespace AppWebMvcSales.Models
         {
 
         }
+
+        public Departament(string? name)
+        {
+            this.name = name;
+        }
+
         public Departament(int id, string? name)
         {
             this.id = id;
-            name = name;
+            this.name = name;
         }
-
+   
         public void AddSeller(Seller seller)
         {
             Sellers.Add(seller);

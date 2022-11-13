@@ -1,4 +1,4 @@
-﻿using AppWebMvcSales.Models.ViewModels.Enums;
+﻿using AppWebMvcSales.Models.Enums;
 
 namespace AppWebMvcSales.Models
 {
@@ -8,11 +8,19 @@ namespace AppWebMvcSales.Models
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public SalesStatus Status{ get; set; }
-        public Seller? Seller { get; set; }
+        public Seller Seller { get; set; }
+        public int SellerId { get; set; }
 
         public SelesRecord()
         {
 
+        }
+        public SelesRecord( DateTime date, decimal amount, SalesStatus status, int sellerId)
+        {
+            Date = date;
+            Amount = amount;
+            Status = status;
+            SellerId = sellerId;
         }
         public SelesRecord(int id, DateTime date, decimal amount, SalesStatus status, Seller seller)
         {
