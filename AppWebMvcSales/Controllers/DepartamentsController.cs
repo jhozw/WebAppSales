@@ -18,14 +18,58 @@ namespace AppWebMvcSales.Controllers
         public DepartamentsController(DepartamentService departamentService)        {
             _departamentService = departamentService;
         }
-
         public IActionResult Index()
         {
             var departaments = _departamentService.FindAll();
             return View(departaments);
 
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Departament departament)
+        {
+            bool success = _departamentService.Incert(departament);
+            if (success)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return NotFound("ERROR: Create not possible!");
+        }
+        public IActionResult Delete(int? id)
+        {
+            if (id is null)
+            {
+                return BadRequest("ERROR: Delete not possible!");
+            }
+            var departament = _departamentService.FindById(id.Value);
+            if (departament is null)
+            {
+                return NotFound();
+            }
 
+            return View(departament);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            bool success = _departamentService.RemoveItem(id);
+            if (success)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return NotFound("ERROR: Create not possible!");
+        }
+        public IActionResult Details(int id)
+        {
+            var departament = _departamentService.FindById(id);
+            return View(departament);
+        }
 
         /*private readonly AppWebMvcSalesContext _context;
 

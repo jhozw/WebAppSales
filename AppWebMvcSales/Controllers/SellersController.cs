@@ -39,13 +39,64 @@ namespace AppWebMvcSales.Controllers
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Delete()
+        //public IActionResult Delete()
+        //{
+        //    return View();
+        //}
+        public IActionResult Details(int? id)
         {
-            return View();
+            if (id is null)
+            {
+                return NotFound();
+            }
+            var obj = _sellerService.FindById(id.Value);
+            if (obj is null)
+            {
+                return NotFound();
+            }
+            var departament = _departamentService.FindById(obj.DepartamentId);
+            if (departament is not null)
+            {
+                obj.Departament = departament;
+            }
+            else
+            {
+                return NotFound("Departamento não encontrado!");
+            }
+
+            return View(obj);
         }
-        public IActionResult Details()
+
+        public IActionResult Delete(int? id)
         {
-            return View();
+            if (id is null)
+            {
+                return NotFound();
+            }
+            var obj = _sellerService.FindById(id.Value);
+            if (obj is null)
+            {
+                return NotFound();
+            }
+
+            var departament = _departamentService.FindById(obj.DepartamentId);
+            if (departament is not null)
+            {
+                obj.Departament = departament;
+            }
+            else
+            {
+                return NotFound("Departamento não encontrado!");
+            }
+
+            return View(obj);
+        }
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.Remove(id);
+            return RedirectToAction(nameof(Index));
         }
 
 
