@@ -1,5 +1,6 @@
 ﻿using AppWebMvcSales.Data;
 using AppWebMvcSales.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppWebMvcSales.Services
 {
@@ -16,8 +17,7 @@ namespace AppWebMvcSales.Services
         }
         public Seller? FindById(int id)
         {
-            return _contax.Seller.FirstOrDefault(j => j.Id.Equals(id));
-            
+            return _contax.Seller.Include(j => j.Departament).FirstOrDefault(j => j.Id.Equals(id));
         }
         public void Insert(Seller obj)
         {

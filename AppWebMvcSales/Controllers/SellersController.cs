@@ -54,15 +54,6 @@ namespace AppWebMvcSales.Controllers
             {
                 return NotFound();
             }
-            var departament = _departamentService.FindById(obj.DepartamentId);
-            if (departament is not null)
-            {
-                obj.Departament = departament;
-            }
-            else
-            {
-                return NotFound("Departamento não encontrado!");
-            }
 
             return View(obj);
         }
